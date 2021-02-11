@@ -1,15 +1,16 @@
 import smtplib
 import speech_recognition as harsh
 import pyttsx3
+from call_me_authentication import *
 from email.message import EmailMessage
 
 listener = harsh.Recognizer()
 engine = pyttsx3.init()
 
-
 def talk(text):
     engine.say(text)
     engine.runAndWait()
+    password = password_provider()
 
 
 def get_info():
@@ -27,7 +28,7 @@ def get_info():
 def send_email(receiver, subject, message):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('hrshsingh00@gmail.com', 'Ramsha@420')
+    server.login('hrshsingh00@gmail.com', password_provider())
     email = EmailMessage()
     email['From'] = 'hrshsingh00@gmail.com'
     email['To'] = receiver
